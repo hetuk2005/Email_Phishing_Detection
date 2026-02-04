@@ -14,12 +14,12 @@ document.getElementById("scan").addEventListener("click", () => {
           const resultDiv = document.getElementById("result");
 
           if (chrome.runtime.lastError) {
-            resultDiv.innerHTML = `<p class="error">❌ Open an email first</p>`;
+            resultDiv.innerHTML = `<p class="error">Open an email first</p>`;
             return;
           }
 
           if (!response || !response.text) {
-            resultDiv.innerHTML = `<p class="error">❌ Open an email first</p>`;
+            resultDiv.innerHTML = `<p class="error"> Open an email first</p>`;
             return;
           }
 
