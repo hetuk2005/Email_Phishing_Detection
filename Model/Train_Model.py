@@ -1,3 +1,5 @@
+import os
+print("Current working directory:", os.getcwd())
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -5,8 +7,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report
 import joblib
 
-# Load dataset
-data = pd.read_csv('../dataset/emails.csv')
+# Load small dataset
+data = pd.read_csv('Dataset/emails.csv')
 
 X = data['text']
 y = data['label']
@@ -25,8 +27,8 @@ model = MultinomialNB()
 model.fit(X_train, y_train)
 
 # Save model
-joblib.dump(model, '../model/spam_model.pkl')
-joblib.dump(vectorizer, '../model/vectorizer.pkl')
+joblib.dump(model, 'Spam_Model.pkl')
+joblib.dump(vectorizer, 'Vectorizer.pkl')
 
 # Test model
 y_pred = model.predict(X_test)
