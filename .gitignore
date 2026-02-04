@@ -1,0 +1,16 @@
+# Virtual environment
+venv/
+__pycache__/
+
+# Datasets
+Dataset/
+*.csv
+
+# ML models
+*.pkl
+
+# Git internal (VERY IMPORTANT)
+.git/
+
+# OS
+.DS_Store
