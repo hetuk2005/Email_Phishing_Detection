@@ -1,1 +1,1 @@
-# Email_Phishing_Detection
+<h1 align="center">Email Phishing Detection</h1>
