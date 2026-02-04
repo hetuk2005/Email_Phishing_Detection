@@ -28,11 +28,14 @@ INTENT_PATTERNS = {
 
 from flask import Flask, request, jsonify
 import joblib
+import os
 
 app = Flask(__name__)
 
-model = joblib.load('Spam_Model.pkl')
-vectorizer = joblib.load('Vectorizer.pkl')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+model = joblib.load(os.path.join(BASE_DIR, 'Spam_Model.pkl'))
+vectorizer = joblib.load(os.path.join(BASE_DIR, 'Vectorizer.pkl'))
 
 @app.route('/scan', methods=['POST'])
 def scan_email():
