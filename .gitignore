@@ -7,7 +7,7 @@ Dataset/
 *.csv
 
 # ML models
-*.pkl
+# *.pkl
 
 # Git internal (VERY IMPORTANT)
 .git/
