@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import joblib
 
+from sklearn.calibration import CalibratedClassifierCV
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -72,11 +73,15 @@ X_test_vec = vectorizer.transform(X_test)
 # =========================
 # MODEL TRAINING
 # =========================
-model = RandomForestClassifier(
+base_model = RandomForestClassifier(
     n_estimators=100,
     random_state=42,
-    n_jobs=-1
+    n_jobs=-1,
+    class_weight="balanced"
 )
+
+# Calibrate probabilities
+model = CalibratedClassifierCV(base_model, method="sigmoid", cv=3)
 
 model.fit(X_train_vec, y_train)
 

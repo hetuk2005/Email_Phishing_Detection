@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: email-phishing-backend
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn App.App:app"
