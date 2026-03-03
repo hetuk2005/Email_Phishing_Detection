@@ -23,7 +23,7 @@ document.getElementById("scan").addEventListener("click", () => {
             return;
           }
 
-          fetch("https://email-phishing-detection-q3om.onrender.com", {
+          fetch("https://email-phishing-detection-q3om.onrender.com/scan", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
