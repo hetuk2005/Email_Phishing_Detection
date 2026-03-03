@@ -23,7 +23,7 @@ document.getElementById("scan").addEventListener("click", () => {
             return;
           }
 
-          fetch("http://127.0.0.1:5000/scan", {
+          fetch("https://email-phishing-detection-q3om.onrender.com", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
