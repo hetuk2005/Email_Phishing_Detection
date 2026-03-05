@@ -33,13 +33,13 @@ document.getElementById("scan").addEventListener("click", () => {
               // Badge color update
               if (data.level === "HIGH") {
                 chrome.action.setBadgeText({ text: "!" });
-                chrome.action.setBadgeBackgroundColor({ color: "red" });
+                chrome.action.setBackgroundColor({ color: "red" });
               } else if (data.level === "MEDIUM") {
                 chrome.action.setBadgeText({ text: "!" });
-                chrome.action.setBadgeBackgroundColor({ color: "orange" });
+                chrome.action.setBackgroundColor({ color: "orange" });
               } else {
                 chrome.action.setBadgeText({ text: "✓" });
-                chrome.action.setBadgeBackgroundColor({ color: "green" });
+                chrome.action.setBackgroundColor({ color: "green" });
               }
 
               let riskClass = "low";
