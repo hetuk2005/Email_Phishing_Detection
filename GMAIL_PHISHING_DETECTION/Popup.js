@@ -2,39 +2,51 @@ document.getElementById("scan").addEventListener("click", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const tabId = tabs[0].id;
 
-    // Inject content.js manually (IMPORTANT)
     chrome.scripting.executeScript(
       {
         target: { tabId: tabId },
         files: ["content.js"],
       },
       () => {
-        // Now send message AFTER injection
         chrome.tabs.sendMessage(tabId, { action: "GET_EMAIL" }, (response) => {
           const resultDiv = document.getElementById("result");
 
-          if (chrome.runtime.lastError) {
+          if (chrome.runtime.lastError || !response || !response.text) {
             resultDiv.innerHTML = `<p class="error">Open an email first</p>`;
             return;
           }
 
-          if (!response || !response.text) {
-            resultDiv.innerHTML = `<p class="error"> Open an email first</p>`;
-            return;
-          }
+          document.getElementById("loading").style.display = "block";
 
           fetch("https://email-phishing-detection-q3om.onrender.com/scan", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email: response.text }),
+            body: JSON.stringify({
+              email: response.text,
+              sender: response.sender,
+            }),
           })
             .then((res) => res.json())
             .then((data) => {
+              // Badge color update
+              if (data.level === "HIGH") {
+                chrome.action.setBadgeText({ text: "!" });
+                chrome.action.setBadgeBackgroundColor({ color: "red" });
+              } else if (data.level === "MEDIUM") {
+                chrome.action.setBadgeText({ text: "!" });
+                chrome.action.setBadgeBackgroundColor({ color: "orange" });
+              } else {
+                chrome.action.setBadgeText({ text: "✓" });
+                chrome.action.setBadgeBackgroundColor({ color: "green" });
+              }
+
               let riskClass = "low";
               if (data.level === "HIGH") riskClass = "high";
               else if (data.level === "MEDIUM") riskClass = "medium";
+
+              document.getElementById("loading").style.display = "none";
 
               resultDiv.innerHTML = `
                 <p class="${riskClass}">Risk: ${data.risk}%</p>
