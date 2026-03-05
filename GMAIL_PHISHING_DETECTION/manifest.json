@@ -1,16 +1,16 @@
 {
   "icons": {
-    "16": "../Icons/icon16.png",
-    "32": "../Icons/icon32.png",
-    "48": "../Icons/icon48.png",
-    "128": "../Icons/icon128.png"
+    "16": "Icons/icon16.png",
+    "32": "Icons/icon32.png",
+    "48": "Icons/icon48.png",
+    "128": "Icons/icon128.png"
   },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "../Icons/icon16.png",
-      "32": "../Icons/icon32.png",
-      "48": "../Icons/icon48.png"
+      "16": "Icons/icon16.png",
+      "32": "Icons/icon32.png",
+      "48": "Icons/icon48.png"
     }
   },
   "manifest_version": 3,
