@@ -1,13 +1,24 @@
 {
+  "icons": {
+    "16": "../Icons/icon16.png",
+    "32": "../Icons/icon32.png",
+    "48": "../Icons/icon48.png",
+    "128": "../Icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "../Icons/icon16.png",
+      "32": "../Icons/icon32.png",
+      "48": "../Icons/icon48.png"
+    }
+  },
   "manifest_version": 3,
   "name": "Gmail Phishing Scanner",
   "version": "1.0",
   "description": "Scan opened Gmail emails for phishing using AI",
   "permissions": ["activeTab", "scripting"],
   "host_permissions": ["http://127.0.0.1:5000/*"],
-  "action": {
-    "default_popup": "popup.html"
-  },
   "content_scripts": [
     {
       "matches": ["https://mail.google.com/*"],
