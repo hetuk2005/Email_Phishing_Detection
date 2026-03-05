@@ -33,13 +33,13 @@ document.getElementById("scan").addEventListener("click", () => {
               // Badge color update
               if (data.level === "HIGH") {
                 chrome.action.setBadgeText({ text: "!" });
-                chrome.action.setBackgroundColor({ color: "red" });
+                chrome.action.setBadgeBackgroundColor({ color: "red" });
               } else if (data.level === "MEDIUM") {
                 chrome.action.setBadgeText({ text: "!" });
-                chrome.action.setBackgroundColor({ color: "orange" });
+                chrome.action.setBadgeBackgroundColor({ color: "yellow" });
               } else {
                 chrome.action.setBadgeText({ text: "✓" });
-                chrome.action.setBackgroundColor({ color: "green" });
+                chrome.action.setBadgeBackgroundColor({ color: "green" });
               }
 
               let riskClass = "low";
@@ -59,6 +59,11 @@ document.getElementById("scan").addEventListener("click", () => {
 
                 <p><b>Safety Tip:</b> ${data.tip}</p>
               `;
+            })
+            .catch((err) => {
+              document.getElementById("loading").style.display = "none";
+              resultDiv.innerHTML = `<p class="error">Server error</p>`;
+              console.error(err);
             });
         });
       },
