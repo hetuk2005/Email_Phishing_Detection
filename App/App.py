@@ -40,11 +40,11 @@ INTENT_PATTERNS = {
 # =========================
 # LOAD MODEL + VECTORIZER
 # =========================
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 model = joblib.load(os.path.join(BASE_DIR, "Spam_Model.pkl"))
 vectorizer = joblib.load(os.path.join(BASE_DIR, "Vectorizer.pkl"))
-
 
 # =========================
 # EMAIL SCAN ROUTE
