@@ -49,6 +49,14 @@ vectorizer = joblib.load(os.path.join(BASE_DIR, "Vectorizer.pkl"))
 # =========================
 # EMAIL SCAN ROUTE
 # =========================
+@app.route("/")
+def home():
+    return {
+        "project": "AI Email Phishing Detection System",
+        "status": "Running",
+        "endpoint": "/scan (POST)"
+    }
+    
 @app.route("/scan", methods=["POST"])
 def scan_email():
     data = request.get_json()
