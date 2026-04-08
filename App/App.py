@@ -59,13 +59,45 @@ def home():
     
 @app.route("/scan", methods=["POST"])
 def scan_email():
-    data = request.get_json()
-    email_text = data.get("email", "")
+    try:
+        data = request.get_json(force=True)
+        email_text = data.get("email", "") if data else ""
 
-    if not email_text:
-        return jsonify({"error": "No email content provided"}), 400
+        if not email_text:
+            return jsonify({"error": "No email content provided"}), 400
 
-    email_lower = email_text.lower()
+        email_lower = email_text.lower()
+
+        vector = vectorizer.transform([email_lower])
+        prob = model.predict_proba(vector)[0][1]
+        ml_risk = prob * 100
+
+        rule_score = 0
+        reasons = []
+        tips = set()
+
+        if "urgent" in email_lower:
+            rule_score += 15
+
+        final_risk = (ml_risk * 0.7) + (rule_score * 0.3)
+
+        return jsonify({
+            "risk": round(final_risk, 2),
+            "level": "LOW"
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)})
+    
+# @app.route("/scan", methods=["POST"])
+# def scan_email():
+#     data = request.get_json()
+#     email_text = data.get("email", "")
+
+#     if not email_text:
+#         return jsonify({"error": "No email content provided"}), 400
+
+#     email_lower = email_text.lower()
 
     # =========================
     # ML PROBABILITY
