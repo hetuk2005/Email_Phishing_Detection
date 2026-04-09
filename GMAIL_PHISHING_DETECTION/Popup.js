@@ -17,7 +17,7 @@ document.getElementById("scan").addEventListener("click", () => {
           }
 
           document.getElementById("loading").style.display = "block";
-          fetch("https://email-phishing-detection-q3om.onrender.com/scan", {
+          fetch("https://email-phishing-detection-2.onrender.com/scan", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
