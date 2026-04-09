@@ -17,53 +17,27 @@ document.getElementById("scan").addEventListener("click", () => {
           }
 
           document.getElementById("loading").style.display = "block";
-
           fetch("https://email-phishing-detection-q3om.onrender.com/scan", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              email: response.text,
-              sender: response.sender,
+              email: response.text || "test email",
             }),
           })
-            .then((res) => res.json())
+            .then((res) => {
+              if (!res.ok) throw new Error("Server not responding");
+              return res.json();
+            })
             .then((data) => {
-              // Badge color update
-              if (data.level === "HIGH") {
-                chrome.action.setBadgeText({ text: "!" });
-                chrome.action.setBadgeBackgroundColor({ color: "red" });
-              } else if (data.level === "MEDIUM") {
-                chrome.action.setBadgeText({ text: "!" });
-                chrome.action.setBadgeBackgroundColor({ color: "yellow" });
-              } else {
-                chrome.action.setBadgeText({ text: "✓" });
-                chrome.action.setBadgeBackgroundColor({ color: "green" });
-              }
-
-              let riskClass = "low";
-              if (data.level === "HIGH") riskClass = "high";
-              else if (data.level === "MEDIUM") riskClass = "medium";
-
-              document.getElementById("loading").style.display = "none";
-
-              resultDiv.innerHTML = `
-                <p class="${riskClass}">Risk: ${data.risk}%</p>
-                <p class="${riskClass}">Threat Level: ${data.level}</p>
-
-                <p><b>Reasons:</b></p>
-                <ul>
-                  ${data.reasons.map((r) => `<li>${r}</li>`).join("")}
-                </ul>
-
-                <p><b>Safety Tip:</b> ${data.tip}</p>
-              `;
+              console.log(data);
             })
             .catch((err) => {
-              document.getElementById("loading").style.display = "none";
-              resultDiv.innerHTML = `<p class="error">Server error</p>`;
               console.error(err);
+
+              document.getElementById("result").innerHTML =
+                "<p class='error'>Server is waking up... try again in 10 seconds</p>";
             });
         });
       },
